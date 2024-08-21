@@ -82,6 +82,5 @@ const displayAllMovies = function({genre_name, total_pages, data}) {
 await confHeader();
 
 fetchDataFromServer(`http://localhost:3000/fecomm/films?genre=${genreName}&page=${currentPage}`, 'GET', displayAllMovies);
-//displayAllMovies(genre_name, totalPages, data);
 
 search();

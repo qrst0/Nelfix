@@ -1,6 +1,6 @@
 'use strict';
 
-import { imageBaseURL, fetchDataFromServer, postDataToServer } from "./api.js";
+import { fetchDataFromServer, postDataToServer } from "./api.js";
 
 import { sidebar } from "./sidebar.js";
 import { createMovieCard } from "./movie-card.js";
@@ -9,7 +9,6 @@ import { fetchTrailer } from "./tmdb.js";
 
 const movieId = window.localStorage.getItem("movieId");
 const pageContent = document.querySelector("[page-content]");
-
 
 sidebar();
 
@@ -153,13 +152,11 @@ const addSuggestedMovies = async function({ data }){
     pageContent.append(movieListElem);
 }
 
-//displayDetail(data);
-
 search();
 
 document.addEventListener("click", async function(e){
-    const target = e.target.closest("#main-btn"); // Or any other selector.
-
+    const target = e.target.closest("#main-btn"); 
+    
     if(target){
         await buyThisMovie();
     }

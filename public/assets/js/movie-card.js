@@ -1,7 +1,5 @@
 'use strict';
 
-import { imageBaseURL } from "./api.js";
-
 export function createMovieCard(movie){
     let { id, title, director, release_year, genre, price, duration, cover_image_url } = movie;
     if(!cover_image_url){

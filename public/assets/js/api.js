@@ -1,8 +1,5 @@
 'use strict';
 
-// import { FilmsService } from '../../../src/films/films.service';
-
-
 const imageBaseURL = 'http://localhost:3000'
 
 function getToken(){
@@ -63,4 +60,4 @@ const confHeader = async function (login_btn, coin_label) {
     }
 }
 
-export { imageBaseURL, fetchDataFromServer, postDataToServer, confHeader};
+export { fetchDataFromServer, postDataToServer, confHeader};

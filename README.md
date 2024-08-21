@@ -1,73 +1,293 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+<h1 align="center">📺 Nelfix 📺</h1>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<h2 id="table-of-contents">🔍 Daftar Isi</h2>
+- <a href="#table-of-contents">🔍 Daftar Isi</a><br/>
+- <a href="#preview">👀 Preview</a><br/>
+- <a href="#how-to-run">🚶‍♂️ Menjalankan Program</a><br/>
+- <a href="#design-pattern">📊 Design Pattern</a><br/>
+- <a href="#tech-stack">💻 Tech Stack</a><br>
+- <a href="#endpoint">📞 Endpoint</a><br/>
+- <a href="#bonus">✨ Bonus</a><br/>
+- <a href="#author">🙇‍♂️ Kontributor</a>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<h2 id="preview">👀 Preview</h2>
 
-## Description
+![home preview](./public/assets/images/home-preview.PNG)
+![detail preview](./public/assets/images/detail-preview.PNG)
+![all movie preview](./public/assets/images/all-movies-preview.PNG)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<h2 id="how-to-run">🚶 Menjalankan Program</h2>
 
-## Installation
+1. Download ZIP atau clone repository
+2. Jalankan program terminal (misalnya Command Prompt, Powershell, dan semacamnya).
+3. Pindah current directory ke folder ini, yaitu `(folder download)\Nelfix`.
+4. Jalankan command `npm run start:dev` untuk memulai program.
+5. Di terminal lainnya, jalankan `docker-compose up`. Kemudian buka terminal lain untuk menjalankan `npx prisma db seed`.
+6. Ketik `http://localhost:3000` pada browser favorit Anda.
+7. Proses seeding telah menambahkan akun admin dengan username `admin` dan password `admin123`.
 
-```bash
-$ npm install
-```
+<h2 id="design-pattern">📊 Design Pattern</h2>
 
-## Running the app
+1. Singleton
+   <p>
+   Digunakan design pattern singleton untuk mengontrol akses ke database. Karena database dipakai di seluruh aspek program, dibutuhkan akses global ke instans database yang sama. Kelas-kelas yang diinisiasi dengan design pattern singleton adalah kelas yang berinteraksi dengan database, seperti UsersService, FilmService, dan HistoryService. Kelas-kelas ini menyediakan layanan database pada seluruh program tanpa membuat program berinteraksi langsung dengan database.
+   </p>
 
-```bash
-# development
-$ npm run start
+2. Command
+   <p>
+   Design pattern command digunakan untuk mengeksekusi perintah seperti kueri films dan mengambil detail films. Hal ini dikarenakan route yang digunakan untuk berinteraksi dengan bagian frontend berbeda dengan REST API. Meskipun begitu, kedua endpoint ini memiliki kesamaan fungsi kueri film. Oleh karena itu, digunakan sebuah kelas command yang akan mengeksekusi operasi kueri pada database.
+   </p>
+   
+3. Facade
+   <p>
+   Design pattern facade digunakan terutama pada operasi upload file dan video film. Design pattern ini menyembunyikan detail implementasi upload dan delete file pada bucket Amazon S3. Detail implementasi seperti ekstraksi key pada bucket, proses upload/delete file, serta proses pengembalian url disembunyikan dibalik kelas service. Dengan design pattern ini, fungsionalitas upload/delete file dapat digunakan tanpa membuat kode rumit. 
+   </p>
 
-# watch mode
-$ npm run start:dev
+<h2 id="tech-stack">💻 Tech Stack</h2>
 
-# production mode
-$ npm run start:prod
-```
+1. NestJS   10.4.4
+2. Prisma   5.18.0
+3. Docker   25.0.3
+4. NPM      10.3.0
+5. Amazon S3 Bucket
+6. Vanilla HTML + CSS + JS
 
-## Test
+<h2 id="endpoint">📞 Endpoint</h2>
+<table>
+  <tr>
+    <th>Method</th>
+    <th>Endpoint</th>
+    <th>Tipe</th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/</th>
+    <th>
+      Frontend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/login</th>
+    <th>
+      Frontend
+    </th>
+  </tr>
+  <tr>
+    <th>POST</th>
+    <th>/login</th>
+    <th>
+      REST API
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/signup</th>
+    <th>
+      Frontend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/index</th>
+    <th>
+      Frontend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/detail</th>
+    <th>
+      Frontend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/movie-list</th>
+    <th>
+      Frontend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/all-films</th>
+    <th>
+      Frontend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/bought-films</th>
+    <th>
+      Frontend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/users</th>
+    <th>
+      REST API
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/users/{id}</th>
+    <th>
+      REST API
+    </th>
+  </tr>
+  <tr>
+    <th>DELETE</th>
+    <th>/users/{id}</th>
+    <th>
+      REST API
+    </th>
+  </tr>
+  <tr>
+    <th>POST</th>
+    <th>/users/{id}/balance</th>
+    <th>
+      REST API
+    </th>
+  </tr>
+  <tr>
+    <th>POST</th>
+    <th>/films</th>
+    <th>
+      REST API
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/films</th>
+    <th>
+      REST API
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/films/{id}</th>
+    <th>
+      REST API
+    </th>
+  </tr>
+  <tr>
+    <th>PUT</th>
+    <th>/films/{id}</th>
+    <th>
+      REST API
+    </th>
+  </tr>
+  <tr>
+    <th>DELETE</th>
+    <th>/films/{id}</th>
+    <th>
+      REST API
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/self</th>
+    <th>
+      REST API
+    </th>
+  </tr>
+  <tr>
+    <th>POST</th>
+    <th>/fecomm/login</th>
+    <th>
+      Backend
+    </th>
+  </tr>
+  <tr>
+    <th>POST</th>
+    <th>/fecomm/signup</th>
+    <th>
+      Backend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/fecomm/films/{id}</th>
+    <th>
+      Backend
+    </th>
+  </tr>
+  <tr>
+    <th>POST</th>
+    <th>/fecomm/films/{id}</th>
+    <th>
+      Backend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/fecomm/allfilms</th>
+    <th>
+      Backend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/fecomm/films</th>
+    <th>
+      Backend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/fecomm/users/{id}</th>
+    <th>
+      Backend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/fecomm/authme</th>
+    <th>
+      Backend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/fecomm/user</th>
+    <th>
+      Backend
+    </th>
+  </tr>
+  <tr>
+    <th>GET</th>
+    <th>/fecomm/get-bought</th>
+    <th>
+      Backend
+    </th>
+  </tr>
+</table>
 
-```bash
-# unit tests
-$ npm run test
+<h2 id="bonus">✨ Bonus</h2>
 
-# e2e tests
-$ npm run test:e2e
+1. Responsive UI
+2. Fitur menonton trailer (kreativitas)
+3. Bucket (Amazon S3)
 
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+<h2 id="author">🙇‍♂️ Kontributor</h2>
+<table>
+  <tr>
+    <th>Nama</th>
+    <th>NIM</th>
+    <th>Email</th>
+    <th>Github</th>
+  </tr>
+  <tr>
+    <th>Kristo Anugrah</th>
+    <th>13522024</th>
+    <th>
+      <a href="mailto:13522024@std.stei.itb.ac.id">13522024@std.stei.itb.ac.id</a>
+    </th>
+    <th>
+      <a href="https://github.com/qrst0">
+        qrst0
+      </a>
+    </th>
+  </tr>
+</table>

@@ -6,7 +6,7 @@ const options = {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YWIyYmY1N2ZmYmQzZGYwNTFiZjBmNTUwNGYxYmE5MyIsIm5iZiI6MTcyNDE1OTg0OC4yNjY0NSwic3ViIjoiNjZjNDk2OWY3M2M3YjFiNDRkZDM0ODkyIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.lMu-NmDQ_lTKdD8qNBpI7vbXDTjSrMx7CdtGhqJFeQ8'
+      Authorization: 'Bearer ' + token
     }
   };
 
@@ -48,7 +48,7 @@ export async function fetchTrailer(title){
                         if(taken === 6) break;
                         if(video.site !== "YouTube" || (video.type !== "Trailer" && video.type !== "Clip")) continue;
                         taken++;
-                        results.push(`https://www.youtube.com/embed/${video.key}?enablejsapi=1`);
+                        results.push(`https://www.youtube.com/embed/${video.key}`);
                     }
                 });
         });

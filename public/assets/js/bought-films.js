@@ -69,6 +69,5 @@ const displayAllMovies = function({total_pages, data}) {
 await confHeader();
 
 fetchDataFromServer(`http://localhost:3000/fecomm/get-bought?page=1`, 'GET', displayAllMovies);
-//displayAllMovies(genre_name, totalPages, data);
 
 search();

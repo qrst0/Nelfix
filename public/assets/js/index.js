@@ -1,12 +1,11 @@
 'use strict';
 
 import { sidebar } from "./sidebar.js";
-import { imageBaseURL, fetchDataFromServer } from './api.js';
+import { fetchDataFromServer } from './api.js';
 import { createMovieCard } from './movie-card.js';
 import { search } from "./search.js";
 
 const pageContent = document.querySelector("[page-content]");
-
 
 sidebar();
 
