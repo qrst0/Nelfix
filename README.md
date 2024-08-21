@@ -21,8 +21,9 @@
 1. Download ZIP atau clone repository
 2. Jalankan program terminal (misalnya Command Prompt, Powershell, dan semacamnya).
 3. Pindah current directory ke folder ini, yaitu `(folder download)\Nelfix`.
+4. Install dependencies dengan mengetik `npm install`.
 4. Jalankan command `npm run start:dev` untuk memulai program.
-5. Di terminal lainnya, jalankan `docker-compose up`. Kemudian buka terminal lain untuk menjalankan `npx prisma db seed`.
+5. Di terminal lainnya, jalankan `docker-compose up`. Kemudian buka terminal lain untuk menjalankan `npx prisma migrate dev --name init`.
 6. Ketik `http://localhost:3000` pada browser favorit Anda.
 7. Proses seeding telah menambahkan akun admin dengan username `admin` dan password `admin123`.
 
