@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -7,21 +7,31 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
-    console.log('yooo');
-    return await this.usersService.create(createUserDto);
-  }
-
   @Get()
-  async findAll() {
-    console.log('yooo2');
-    return await this.usersService.findAll();
+  async findAll(@Query() queryGet: Record<string, any>) {
+    const query = queryGet.q || "";
+    try{
+      return await this.usersService.findAll(query);
+    } catch(error){
+      return {
+        status: "error",
+        message: "Unexpected error",
+        data: null
+      }
+    }
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.usersService.findOne(+id);
+    try{
+      return await this.usersService.findOne(+id);
+    } catch(error){
+      return {
+        status: "error",
+        message: "Unexpected error",
+        data: null
+      }
+    }
   }
 
   @Patch(':id')
@@ -31,6 +41,27 @@ export class UsersController {
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.usersService.remove(+id);
+    try{
+      return await this.usersService.remove(+id);
+    }catch(error){
+      return {
+        status: "error",
+        message: "Unexpected error",
+        data: null
+      }
+    }
+  }
+
+  @Post(':id/balance')
+  async increment(@Param('id') id: string, @Body() incrementDto: Record<string, any>){
+    try{
+      return await this.usersService.increment(+id, +incrementDto.increment);
+    } catch(error){
+      return {
+        status: "error",
+        message: "Unexpected error",
+        data: null
+      } 
+    }
   }
 }

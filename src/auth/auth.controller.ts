@@ -1,22 +1,36 @@
-import { Body, Controller, Post, HttpCode, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Post, Get, Options, HttpCode, HttpStatus } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Public } from './constants'
+import { Public } from './constants';
+import { AuthUser } from './auth.decorator';
 
 @Controller('')
 export class AuthController {
     constructor(private authService: AuthService){}
 
     @Public()
-    @HttpCode(HttpStatus.OK)
     @Post('login')
     async signIn(@Body() signInDto: Record<string, any>){
-        return await this.authService.signIn(signInDto.username, signInDto.password);
+        try{
+            return await this.authService.signIn(signInDto.username, signInDto.password);
+        } catch(error){
+            return {
+                status: "error",
+                message: "Unexpected error",
+                data: null
+            }
+        }
     }
 
-    @Public()
-    @HttpCode(HttpStatus.CREATED)
-    @Post('signup')
-    async signUp(@Body() signUpDto: Record<string, any>){
-        return await this.authService.signUp(signUpDto.username, signUpDto.email, signUpDto.password);
+    @Get('self')
+    async getSelf(@AuthUser() request: any){
+        try{
+            return this.authService.getSelf(request);
+        } catch(error){
+            return {
+                status: "error",
+                message: "Unexpected error",
+                data: null
+            }
+        }
     }
 }

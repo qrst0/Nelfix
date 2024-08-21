@@ -14,7 +14,6 @@ async function main() {
       email: 'john@gmail.com',
       password:
         'notjohnspassword',
-      history:[3, 4]
     }
   });
 
@@ -26,7 +25,6 @@ async function main() {
       email: 'sally@gmail.com',
       password:
         'notsallyspassword',
-      history:[3, 4, 6]
     }
   });
 

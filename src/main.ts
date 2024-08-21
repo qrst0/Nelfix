@@ -3,28 +3,33 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 
-// Define the bootstrap function
 async function bootstrap() {
-  // Create a NestJS application instance by passing the AppModule to the NestFactory
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.enableCors({
+    origin: '*',
+    credentials: true,
+    allowedHeaders: 'Content-Type, Accept, Authorization, Content-Security-Policy',
+    preflightContinue: false,
+    optionsSuccessStatus: 200,
+  });
+  app.useStaticAssets(join(__dirname, '..', '..', 'public'));
 
-  // Use DocumentBuilder to create a new Swagger document configuration
+  app.setBaseViewsDir(join(__dirname, '..', '..', 'views'));
+  app.setViewEngine('ejs');
+
   const config = new DocumentBuilder()
-    .setTitle('Recipes API') // Set the title of the API
-    .setDescription('Recipes API description') // Set the description of the API
-    .setVersion('0.1') // Set the version of the API
-    .build(); // Build the document
-
-  // Create a Swagger document using the application instance and the document configuration
+    .addBearerAuth()
+    .setTitle('Nest-js Swagger Example API')
+    .setDescription('Swagger Example API API description')
+    .setVersion('1.0')
+    .build();
   const document = SwaggerModule.createDocument(app, config);
-
-  // Setup Swagger module with the application instance and the Swagger document
   SwaggerModule.setup('api', app, document);
 
-  // Start the application and listen for requests on port 3000
   await app.listen(3000);
 }
 
-// Call the bootstrap function to start the application
 bootstrap();

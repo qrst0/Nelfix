@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Nelfix</title>
+    <link rel="stylesheet" href="./assets/css/style2.css">
+    <link rel="shortcut icon" href="./assets/images/nelfix-logo.svg" type="image/svg+xml">
+    <script src="./assets/js/global.js" defer></script>
+    <script src="./assets/js/login.js" type="module"></script>
+</head>
+<body>
+    <nav>
+        <a href="."><img src="./assets/images/nelfix-logo.svg" alt="logo" class="image-logo"></a>
+    </nav>
+    <div class="form-wrapper">
+        <h2 class="h2-bold">Sign In</h2>
+        <form action="#">
+            <div class="form-control">
+                <input type="text" required class="y" id="email-form">
+                <label class="y">Username or email</label>
+            </div>
+            <div class="form-control form-control2">
+                <input type="password" required id="pw-form">
+                <label class="y">Password</label>
+            </div>
+            <div class="invalid" id="invalid-rem">
+                Invalid credentials!
+            </div>
+            <button type="button", id="submitter", class="submit">Sign In</button>
+            <div class="form-help"> 
+                <div class="remember-me">
+                    <input type="checkbox" id="remember-me">
+                    <label for="remember-me">Remember me</label>
+                </div>
+                <a href=".">Need help?</a>
+            </div>
+        </form>
+        <p>New to Nelfix? <a href="./signup">Sign up now</a></p>
+        <small>
+            This page is protected by Google reCAPTCHA to ensure you're not a bot. 
+            <a href=".">Learn more.</a>
+        </small>
+    </div>
+</body>
+</html>

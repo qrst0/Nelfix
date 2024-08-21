@@ -16,11 +16,14 @@ datasource db {
 model Users {
   id           Int      @id @default(autoincrement())
   username     String   @unique
+  fullname     String   @default("")
   email        String   @unique
   password     String
-  history      Int[]    @default([])
+  balance      Int      @default(0)
+  admin        Boolean  @default(false)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  History      History[]
 }
 
 model Films {
@@ -36,6 +39,14 @@ model Films {
   cover_image_url String   @default("")   
   created_at      DateTime @default(now())
   updated_at      DateTime @updatedAt
+  History         History[]
 }
 
+model History {
+  userId    Int
+  filmId    Int
+  Users     Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Films     Films  @relation(fields: [filmId], references: [id], onDelete: Cascade)
 
+  @@id([userId, filmId])
+}
