@@ -32,6 +32,9 @@ const heroBanner = async function({ status, message, data}) {
     if(data === undefined){
         escapeSequence(2);
         return;
+    }else if(data === null){
+        escapeSequence(2);
+        return;
     }
     const banner = document.createElement("section");
     banner.classList.add("banner");

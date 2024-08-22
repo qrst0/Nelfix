@@ -15,7 +15,7 @@ export class FilmsController {
   ]))
   async create(@UploadedFiles() files: { video?: Express.Multer.File[], cover_image?: Express.Multer.File[] }, @Body() body) {
     try{
-      const { url } = await this.filmsService.uploadSingleFile({file: files.video[0], isPublic: true});  //(files.video[0].originalname, files.video[0].buffer, { access: 'public', token: 'vercel_blob_rw_BwOOj8uduCtRDnwb_m3KRbYmIaeEo4Cj7T5NG9nyzccqUgo' });
+      const { url } = await this.filmsService.uploadSingleFile({file: files.video[0], isPublic: true});
       const blobVid = url;
       let blobImg = '';
       if(files.cover_image?.length){
