@@ -20,6 +20,7 @@
 <h2 id="how-to-run">🚶 Menjalankan Program</h2>
 
 1. Download ZIP atau clone repository
+1. Buat bucket di Amazon S3, kemudian letakkan nama bucket, serta access key di file .env
 2. Jalankan program terminal (misalnya Command Prompt, Powershell, dan semacamnya).
 3. Pindah current directory ke folder ini, yaitu `(folder download)\Nelfix`.
 4. Install dependencies dengan mengetik `npm install`.
