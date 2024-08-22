@@ -27,6 +27,7 @@
 6. Di terminal lainnya, jalankan `docker-compose up`. Kemudian buka terminal lain untuk menjalankan `npx prisma migrate dev --name init`.
 7. Ketik `http://localhost:3000` pada browser favorit Anda.
 8. Proses seeding telah menambahkan akun admin dengan username `admin` dan password `admin123`.
+9. Berhentikan docker dengan command `docker-compose down --volumes`.
 
 <h2 id="design-pattern">📊 Design Pattern</h2>
 
