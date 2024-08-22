@@ -15,6 +15,7 @@
 ![home preview](./public/assets/images/home-preview.PNG)
 ![detail preview](./public/assets/images/detail-preview.PNG)
 ![all movie preview](./public/assets/images/all-movies-preview.PNG)
+![login preview](./public/assets/images/login-preview.PNG)
 
 <h2 id="how-to-run">🚶 Menjalankan Program</h2>
 
@@ -46,12 +47,13 @@
 
 <h2 id="tech-stack">💻 Tech Stack</h2>
 
-1. NestJS   10.4.4
-2. Prisma   5.18.0
-3. Docker   25.0.3
-4. NPM      10.3.0
-5. Amazon S3 Bucket
-6. Vanilla HTML + CSS + JS
+1. NestJS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10.4.4
+2. Prisma&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.18.0
+3. Docker&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25.0.3
+4. NPM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10.3.0
+5. PostgreSQL&nbsp;&nbsp;&nbsp;&nbsp;13.5
+6. Amazon S3 
+7. Vanilla HTML + CSS + JS
 
 <h2 id="endpoint">📞 Endpoint</h2>
 <table>
