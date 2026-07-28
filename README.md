@@ -1,298 +1,216 @@
-<h1 align="center">📺 Nelfix 📺</h1>
+<h1 align="center">📺 Nelfix</h1>
 
-<h2 id="table-of-contents">🔍 Daftar Isi</h2>
-- <a href="#table-of-contents">🔍 Daftar Isi</a><br/>
-- <a href="#preview">👀 Preview</a><br/>
-- <a href="#how-to-run">🚶‍♂️ Menjalankan Program</a><br/>
-- <a href="#design-pattern">📊 Design Pattern</a><br/>
-- <a href="#tech-stack">💻 Tech Stack</a><br>
-- <a href="#endpoint">📞 Endpoint</a><br/>
-- <a href="#bonus">✨ Bonus</a><br/>
-- <a href="#author">🙇‍♂️ Kontributor</a>
+<p align="center">
+  <em>A full-stack movie streaming platform — browse, purchase, and watch films — built with NestJS, Prisma, PostgreSQL, and Amazon S3.</em>
+</p>
 
-<h2 id="preview">👀 Preview</h2>
+<p align="center">
+  <img src="https://img.shields.io/badge/NestJS-10.4.4-E0234E?style=flat-square&logo=nestjs&logoColor=white" alt="NestJS" />
+  <img src="https://img.shields.io/badge/Prisma-5.18.0-2D3748?style=flat-square&logo=prisma&logoColor=white" alt="Prisma" />
+  <img src="https://img.shields.io/badge/PostgreSQL-13.5-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+  <img src="https://img.shields.io/badge/Docker-25.0.3-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker" />
+  <img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=flat-square&logo=amazons3&logoColor=white" alt="Amazon S3" />
+</p>
 
-![home preview](./public/assets/images/home-preview.PNG)
-![detail preview](./public/assets/images/detail-preview.PNG)
-![all movie preview](./public/assets/images/all-movies-preview.PNG)
-![login preview](./public/assets/images/login-preview.PNG)
+---
 
-<h2 id="how-to-run">🚶 Menjalankan Program</h2>
+## 🔍 Table of Contents
 
-1. Download ZIP atau clone repository
-1. Buat bucket di Amazon S3, kemudian letakkan nama bucket, region bucket, serta access key di file .env
-2. Jalankan program terminal (misalnya Command Prompt, Powershell, dan semacamnya).
-3. Pindah current directory ke folder ini, yaitu `(folder download)\Nelfix`.
-4. Install dependencies dengan mengetik `npm install`.
-5. Jalankan command `npm run start:dev` untuk memulai program.
-6. Di terminal lainnya, jalankan `docker-compose up`. Kemudian buka terminal lain untuk menjalankan `npx prisma migrate dev --name init`.
-7. Ketik `http://localhost:3000` pada browser favorit Anda.
-8. Proses seeding telah menambahkan akun admin dengan username `admin` dan password `admin123`.
-9. Berhentikan docker dengan command `docker-compose down --volumes`.
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Preview](#preview)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Design Patterns](#design-patterns)
+- [API Reference](#api-reference)
+- [Contributor](#contributor)
 
-<h2 id="design-pattern">📊 Design Pattern</h2>
+---
 
-1. Singleton
-   <p>
-   Digunakan design pattern singleton untuk mengontrol akses ke database. Karena database dipakai di seluruh aspek program, dibutuhkan akses global ke instans database yang sama. Kelas-kelas yang diinisiasi dengan design pattern singleton adalah kelas yang berinteraksi dengan database, seperti UsersService, FilmService, dan HistoryService. Kelas-kelas ini menyediakan layanan database pada seluruh program tanpa membuat program berinteraksi langsung dengan database.
-   </p>
+## 📖 Overview
 
-2. Command
-   <p>
-   Design pattern command digunakan untuk mengeksekusi perintah seperti kueri films dan mengambil detail films. Hal ini dikarenakan route yang digunakan untuk berinteraksi dengan bagian frontend berbeda dengan REST API. Meskipun begitu, kedua endpoint ini memiliki kesamaan fungsi kueri film. Oleh karena itu, digunakan sebuah kelas command yang akan mengeksekusi operasi kueri pada database.
-   </p>
-   
-3. Facade
-   <p>
-   Design pattern facade digunakan terutama pada operasi upload file dan video film. Design pattern ini menyembunyikan detail implementasi upload dan delete file pada bucket Amazon S3. Detail implementasi seperti ekstraksi key pada bucket, proses upload/delete file, serta proses pengembalian url disembunyikan dibalik kelas service. Dengan design pattern ini, fungsionalitas upload/delete file dapat digunakan tanpa membuat kode rumit. 
-   </p>
+**Nelfix** is a movie streaming web application where users can browse a film catalogue, view trailers and details, top up their balance, and purchase films to add to their personal library. Administrators get a full CRUD interface over the film catalogue and the user base.
 
-<h2 id="tech-stack">💻 Tech Stack</h2>
+The project is built as a monolithic **NestJS** application that serves both a server-rendered frontend and a documented REST API. Film posters and video files are stored in an **Amazon S3** bucket, while all relational data is persisted in **PostgreSQL** through **Prisma ORM**. The entire database layer runs in Docker for a reproducible local setup.
 
-1. NestJS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10.4.4
-2. Prisma&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.18.0
-3. Docker&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25.0.3
-4. NPM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10.3.0
-5. PostgreSQL&nbsp;&nbsp;&nbsp;&nbsp;13.5
-6. Amazon S3 
-7. Vanilla HTML + CSS + JS
+The codebase deliberately applies three classical design patterns — **Singleton**, **Command**, and **Facade** — to keep the data-access, query, and file-storage layers decoupled and reusable across both the web and API entry points.
 
-<h2 id="endpoint">📞 Endpoint</h2>
-<table>
-  <tr>
-    <th>Method</th>
-    <th>Endpoint</th>
-    <th>Tipe</th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/</th>
-    <th>
-      Frontend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/login</th>
-    <th>
-      Frontend
-    </th>
-  </tr>
-  <tr>
-    <th>POST</th>
-    <th>/login</th>
-    <th>
-      REST API
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/signup</th>
-    <th>
-      Frontend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/index</th>
-    <th>
-      Frontend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/detail</th>
-    <th>
-      Frontend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/movie-list</th>
-    <th>
-      Frontend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/all-films</th>
-    <th>
-      Frontend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/bought-films</th>
-    <th>
-      Frontend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/users</th>
-    <th>
-      REST API
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/users/{id}</th>
-    <th>
-      REST API
-    </th>
-  </tr>
-  <tr>
-    <th>DELETE</th>
-    <th>/users/{id}</th>
-    <th>
-      REST API
-    </th>
-  </tr>
-  <tr>
-    <th>POST</th>
-    <th>/users/{id}/balance</th>
-    <th>
-      REST API
-    </th>
-  </tr>
-  <tr>
-    <th>POST</th>
-    <th>/films</th>
-    <th>
-      REST API
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/films</th>
-    <th>
-      REST API
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/films/{id}</th>
-    <th>
-      REST API
-    </th>
-  </tr>
-  <tr>
-    <th>PUT</th>
-    <th>/films/{id}</th>
-    <th>
-      REST API
-    </th>
-  </tr>
-  <tr>
-    <th>DELETE</th>
-    <th>/films/{id}</th>
-    <th>
-      REST API
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/self</th>
-    <th>
-      REST API
-    </th>
-  </tr>
-  <tr>
-    <th>POST</th>
-    <th>/fecomm/login</th>
-    <th>
-      Backend
-    </th>
-  </tr>
-  <tr>
-    <th>POST</th>
-    <th>/fecomm/signup</th>
-    <th>
-      Backend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/fecomm/films/{id}</th>
-    <th>
-      Backend
-    </th>
-  </tr>
-  <tr>
-    <th>POST</th>
-    <th>/fecomm/films/{id}</th>
-    <th>
-      Backend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/fecomm/allfilms</th>
-    <th>
-      Backend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/fecomm/films</th>
-    <th>
-      Backend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/fecomm/users/{id}</th>
-    <th>
-      Backend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/fecomm/authme</th>
-    <th>
-      Backend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/fecomm/user</th>
-    <th>
-      Backend
-    </th>
-  </tr>
-  <tr>
-    <th>GET</th>
-    <th>/fecomm/get-bought</th>
-    <th>
-      Backend
-    </th>
-  </tr>
-</table>
+---
 
-<h2 id="bonus">✨ Bonus</h2>
+## ✨ Key Features
 
-1. Responsive UI
-2. Fitur menonton trailer (kreativitas)
-3. Bucket (Amazon S3)
+| | |
+|---|---|
+| 🔐 **Authentication & authorisation** | Session-based login and signup with separate user and admin roles |
+| 🎬 **Film catalogue** | Browse, search, and filter the full film library |
+| 💳 **Balance & purchases** | Top up balance and buy films, which are then added to a personal library |
+| 📼 **Trailer playback** | Watch film trailers directly in the browser |
+| ☁️ **Cloud storage** | Posters and video files uploaded to and served from Amazon S3 |
+| 🛠️ **Admin panel** | Full CRUD over films and users, including balance adjustments |
+| 📱 **Responsive UI** | Layout adapts cleanly from mobile to desktop |
 
-<h2 id="author">🙇‍♂️ Kontributor</h2>
-<table>
-  <tr>
-    <th>Nama</th>
-    <th>NIM</th>
-    <th>Email</th>
-    <th>Github</th>
-  </tr>
-  <tr>
-    <th>Kristo Anugrah</th>
-    <th>13522024</th>
-    <th>
-      <a href="mailto:13522024@std.stei.itb.ac.id">13522024@std.stei.itb.ac.id</a>
-    </th>
-    <th>
-      <a href="https://github.com/qrst0">
-        qrst0
-      </a>
-    </th>
-  </tr>
-</table>
+---
+
+## 👀 Preview
+
+| Home | Film Detail |
+|:---:|:---:|
+| ![Home page](./public/assets/images/home-preview.PNG) | ![Film detail page](./public/assets/images/detail-preview.PNG) |
+
+| All Films | Login |
+|:---:|:---:|
+| ![All films page](./public/assets/images/all-movies-preview.PNG) | ![Login page](./public/assets/images/login-preview.PNG) |
+
+---
+
+## 💻 Tech Stack
+
+| Layer | Technology | Version |
+|---|---|---|
+| Backend framework | NestJS | 10.4.4 |
+| ORM | Prisma | 5.18.0 |
+| Database | PostgreSQL | 13.5 |
+| Containerisation | Docker | 25.0.3 |
+| Package manager | NPM | 10.3.0 |
+| Object storage | Amazon S3 | — |
+| Frontend | Vanilla HTML, CSS, JavaScript | — |
+
+---
+
+## 🚶 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) with NPM 10.3.0 or newer
+- [Docker](https://www.docker.com/) and Docker Compose
+- An AWS account with an S3 bucket
+
+### Installation
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/qrst0/Nelfix.git
+cd Nelfix
+```
+
+**2. Configure environment variables**
+
+Create an S3 bucket, then create a `.env` file in the project root containing your bucket name, bucket region, and AWS access credentials.
+
+```env
+AWS_BUCKET_NAME=your-bucket-name
+AWS_BUCKET_REGION=your-bucket-region
+AWS_ACCESS_KEY=your-access-key
+AWS_SECRET_ACCESS_KEY=your-secret-access-key
+```
+
+**3. Install dependencies**
+
+```bash
+npm install
+```
+
+**4. Start the database**
+
+```bash
+docker-compose up
+```
+
+**5. Run migrations and seed the database**
+
+In a new terminal:
+
+```bash
+npx prisma migrate dev --name init
+```
+
+**6. Start the application**
+
+```bash
+npm run start:dev
+```
+
+**7. Open the app**
+
+Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
+
+> 💡 The seeding process creates an admin account with the username `admin` and the password `admin123`.
+
+### Shutting down
+
+```bash
+docker-compose down --volumes
+```
+
+---
+
+## 📊 Design Patterns
+
+### 1. Singleton
+
+The Singleton pattern controls access to the database. Because the database is used throughout the entire application, a single globally accessible instance is required. Classes that interact with the database — such as `UsersService`, `FilmService`, and `HistoryService` — are instantiated as singletons. They expose database operations as services to the rest of the application, so no other part of the codebase talks to the database directly.
+
+### 2. Command
+
+The Command pattern is used to execute operations such as querying films and fetching film details. The routes serving the frontend are separate from those serving the REST API, yet both rely on the same film-query logic. Encapsulating that logic in a command class means the query operation is written once and executed from either entry point.
+
+### 3. Facade
+
+The Facade pattern is applied primarily to file and video uploads. It hides the implementation details of uploading to and deleting from the Amazon S3 bucket — key extraction, the upload/delete calls, and URL generation are all tucked behind a service class. Callers get simple upload and delete functionality without any of the underlying complexity.
+
+---
+
+## 📞 API Reference
+
+### Web Pages (server-rendered frontend)
+
+| Method | Endpoint |
+|---|---|
+| `GET` | `/` |
+| `GET` | `/login` |
+| `GET` | `/signup` |
+| `GET` | `/index` |
+| `GET` | `/detail` |
+| `GET` | `/movie-list` |
+| `GET` | `/all-films` |
+| `GET` | `/bought-films` |
+
+### REST API
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/login` | Authenticate a user |
+| `GET` | `/users` | List all users |
+| `GET` | `/users/{id}` | Retrieve a single user |
+| `DELETE` | `/users/{id}` | Delete a user |
+| `POST` | `/users/{id}/balance` | Adjust a user's balance |
+| `POST` | `/films` | Create a film |
+| `GET` | `/films` | List all films |
+| `GET` | `/films/{id}` | Retrieve a single film |
+| `PUT` | `/films/{id}` | Update a film |
+| `DELETE` | `/films/{id}` | Delete a film |
+| `GET` | `/self` | Retrieve the authenticated user |
+
+### Frontend Communication Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/fecomm/login` | Log in from the web client |
+| `POST` | `/fecomm/signup` | Register from the web client |
+| `GET` | `/fecomm/films/{id}` | Fetch film details |
+| `POST` | `/fecomm/films/{id}` | Purchase a film |
+| `GET` | `/fecomm/allfilms` | Fetch the complete film catalogue |
+| `GET` | `/fecomm/films` | Fetch a filtered list of films |
+| `GET` | `/fecomm/users/{id}` | Fetch a user's data |
+| `GET` | `/fecomm/authme` | Verify the current session |
+| `GET` | `/fecomm/user` | Fetch the authenticated user's profile |
+| `GET` | `/fecomm/get-bought` | Fetch the authenticated user's purchased films |
+
+---
+
+## 🙇‍♂️ Contributor
+
+| Name | Student ID | Email | GitHub |
+|---|---|---|---|
+| Kristo Anugrah | 13522024 | [13522024@std.stei.itb.ac.id](mailto:13522024@std.stei.itb.ac.id) | [@qrst0](https://github.com/qrst0) |
